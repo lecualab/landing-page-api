@@ -3,9 +3,32 @@ services:
   main:
     build:
       dockerfile: ./.devcontainer/Dockerfile
+    depends_on:
+      - contact-db
     environment:
       - CONTACT_DATABASE_URL=postgresql://admin:admin@contact-db:5432/postgres
+    command: sh -c "npm run migration:run --db=contact && pnpm start:dev"
     ports:
       - ${PORT:-3000}:${PORT:-3000}
     volumes:
       - ./:/app
+  contact-db:
+    image: postgres
+    volumes:
+      - contact-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+  dbms:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    volumes:
+      - dbms-data:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+
+volumes:
+  contact-db-data:
+  dbms-data:
