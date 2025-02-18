@@ -1,0 +1,42 @@
+name: Deployment
+
+on:
+  workflow_call:
+    inputs:
+      stage:
+        type: string
+        description: 'Stage to be deployed'
+        required: true
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.stage }}
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        # ISSUE: Serverless with Pnpm doesn't allow to strip out the devDependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Copy serverless configuration
+        run: cp serverless/serverless.${{ inputs.stage }}.yaml serverless.yaml
+      - name: Deploy
+        run: npx serverless deploy --stage ${{ inputs.stage }}
+        env:
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

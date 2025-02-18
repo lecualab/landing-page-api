@@ -1,0 +1,9 @@
+---
+service: ${file(./serverless/serverless.common.yaml):service}
+
+plugins:
+  - serverless-offline
+
+provider: ${file(./serverless/serverless.common.yaml):provider}
+package: ${file(./serverless/serverless.common.yaml):package}
+functions: ${file(./serverless/serverless.common.yaml):functions}

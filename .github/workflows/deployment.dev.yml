@@ -1,0 +1,25 @@
+name: '[Develop] Deployment'
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - README.md
+    branches:
+      - develop
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  code-quality-check:
+    name: Code Quality Check
+    uses: ./.github/workflows/code-quality.check.yml
+  deployment:
+    name: Deployment
+    needs: code-quality-check
+    uses: ./.github/workflows/deployment.common.yml
+    secrets: inherit
+    with:
+      stage: dev
