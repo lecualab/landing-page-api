@@ -1,0 +1,15 @@
+---
+services:
+  main:
+    build:
+      context: .
+      args:
+        - PROJECT_NAME=landing-page
+    env_file: .env
+    ports:
+      - ${PORT:-3000}:${PORT:-3000}
+    volumes:
+      - landing-page_node_modules:/app/node_modules
+
+volumes:
+  landing-page_node_modules:

@@ -1,0 +1,11 @@
+---
+services:
+  main:
+    build:
+      dockerfile: ./.devcontainer/Dockerfile
+    environment:
+      - CONTACT_DATABASE_URL=postgresql://admin:admin@contact-db:5432/postgres
+    ports:
+      - ${PORT:-3000}:${PORT:-3000}
+    volumes:
+      - ./:/app

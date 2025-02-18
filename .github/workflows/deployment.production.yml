@@ -1,0 +1,26 @@
+name: '[Production] Deployment'
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - README.md
+    branches:
+      - main
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  code-quality-check:
+    name: Code Quality Check
+    uses: lecualab/workflows/.github/workflows/code-quality.check.yml@main
+  deployment:
+    name: Deployment
+    needs: code-quality-check
+    uses: lecualab/workflows/.github/workflows/serverless.deployment.yml@main
+    secrets: inherit
+    with:
+      stage: production
+      serverless_file_path: serverless/serverless.production.yaml

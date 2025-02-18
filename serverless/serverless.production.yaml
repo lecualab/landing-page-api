@@ -1,0 +1,13 @@
+---
+service: ${file(./serverless/serverless.common.yaml):service}
+plugins: ${file(./serverless/serverless.common.yaml):plugins}
+provider: ${file(./serverless/serverless.common.yaml):provider}
+package: ${file(./serverless/serverless.common.yaml):package}
+functions: ${file(./serverless/serverless.common.yaml):functions}
+
+custom:
+  # TODO: Uncomment the following line if you have any managed policies
+  # managedPolicies:
+  #   - arn:aws:iam::aws:policy/YOUR_POLICY
+  httpApi:
+    id: 1mhdgp6s32

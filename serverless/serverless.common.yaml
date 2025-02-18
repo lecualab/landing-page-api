@@ -1,0 +1,37 @@
+---
+service: landing-page-api
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-deployment-bucket
+
+provider:
+  name: aws
+  stage: ${opt:stage, "local"}
+  runtime: nodejs22.x
+  iam:
+    role:
+      name: ${self:service}-${sls:stage}-role
+      # TODO: Uncomment the following line if you have any managed policies
+      # managedPolicies: ${self:custom.managedPolicies, ""}
+  deploymentBucket:
+    name: ${self:service}-${sls:stage}
+    serverSideEncryption: AES256
+  httpApi: ${self:custom.httpApi, ""}
+  environment:
+    NODE_ENV: ${self:custom.nodeEnv, "production"}
+    # TODO: Add environment variables here
+    # MY_VAR: ${env:MY_VAR}
+
+package:
+  patterns:
+    - '!./**'
+    - app/**
+    - node_modules/**
+
+functions:
+  main:
+    name: ${self:service}-${sls:stage}
+    handler: app/src/lambda.handler
+    events:
+      - httpApi: '*'
