@@ -1,0 +1,6 @@
+node_modules/
+app/
+.eslintcache
+.idea/
+.DS_Store
+.serverless/

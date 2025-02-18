@@ -1,0 +1,17 @@
+---
+service: ${file(./serverless/serverless.common.yaml):service}
+plugins: ${file(./serverless/serverless.common.yaml):plugins}
+provider: ${file(./serverless/serverless.common.yaml):provider}
+package: ${file(./serverless/serverless.common.yaml):package}
+functions: ${file(./serverless/serverless.common.yaml):functions}
+
+custom:
+  # TODO: Uncomment the following line if you have any managed policies
+  # managedPolicies:
+  #   - arn:aws:iam::aws:policy/YOUR_POLICY
+  vpc:
+    securityGroupIds:
+      - sg-07c48ec1031aed1dd
+    subnetIds:
+      - subnet-0782eb9a1eb93fcb9
+      - subnet-0bd21997a89a34839
