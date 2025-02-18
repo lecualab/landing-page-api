@@ -1,0 +1,28 @@
+---
+name: Run Migrations
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'The stage to run the migrations on.'
+        required: true
+        type: choice
+        options:
+          - production
+  workflow_call:
+    inputs:
+      stage:
+        description: 'The stage to run the migrations on.'
+        required: true
+        type: string
+
+jobs:
+  run-migrations:
+    name: Run Migrations
+    uses: lecualab/workflows/.github/workflows/run-migrations.job.yml@main
+    secrets: inherit
+    with:
+      stage: ${{ inputs.stage }}
+      migration_command: |
+        npm run migration:run --db=contact
