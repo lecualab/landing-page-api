@@ -24,3 +24,10 @@ jobs:
     with:
       stage: production
       serverless_file_path: serverless/serverless.production.yaml
+  run-migrations:
+    name: Run Migrations
+    needs: deployment
+    uses: ./.github/workflows/run-migrations.job.yml
+    secrets: inherit
+    with:
+      stage: production

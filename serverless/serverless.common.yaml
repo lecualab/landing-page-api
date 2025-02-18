@@ -20,8 +20,7 @@ provider:
   httpApi: ${self:custom.httpApi, ""}
   environment:
     NODE_ENV: ${self:custom.nodeEnv, "production"}
-    # TODO: Add environment variables here
-    # MY_VAR: ${env:MY_VAR}
+    CONTACT_DATABASE_URL: ${env:CONTACT_DATABASE_URL}
 
 package:
   patterns:
