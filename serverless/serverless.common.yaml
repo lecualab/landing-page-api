@@ -22,8 +22,7 @@ provider:
     cors: true
   environment:
     NODE_ENV: ${sls:stage}
-    # TODO: Add environment variables here
-    # MY_VAR: ${env:MY_VAR}
+    CONTACT_DATABASE_URL: ${env:CONTACT_DATABASE_URL}
 
 package:
   patterns:

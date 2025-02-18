@@ -3,11 +3,27 @@ services:
   main:
     build:
       dockerfile: ./.devcontainer/Dockerfile
+    env_file:
+      - path: .env
+        required: true
+      - path: .env.local
+        required: false
+    depends_on:
+      - contact-db
     ports:
       - ${PORT:-3000}:${PORT:-3000}
     volumes:
       - ./:/app
       - node_modules:/app/node_modules
+  contact-db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - contact-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
   dbms:
     image: dpage/pgadmin4
     ports:
@@ -20,4 +36,5 @@ services:
 
 volumes:
   node_modules:
+  contact-db-data:
   dbms-data:
