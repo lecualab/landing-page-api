@@ -12,6 +12,12 @@ provider:
   iam:
     role:
       name: ${self:service}-${sls:stage}-role
+      statements:
+        - Effect: Allow
+          Resource: '*'
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
       # TODO: Uncomment the following line if you have any managed policies
       # managedPolicies: ${self:custom.managedPolicies, ""}
   deploymentBucket:
