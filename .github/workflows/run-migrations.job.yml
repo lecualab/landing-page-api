@@ -26,3 +26,4 @@ jobs:
       stage: ${{ inputs.stage }}
       migration_command: |
         npm run migration:run --db=contact
+        npm run migration:run --db=brands

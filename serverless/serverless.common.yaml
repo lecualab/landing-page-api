@@ -21,6 +21,7 @@ provider:
   environment:
     NODE_ENV: ${self:custom.nodeEnv, "production"}
     CONTACT_DATABASE_URL: ${env:CONTACT_DATABASE_URL}
+    BRANDS_DATABASE_URL: ${env:BRANDS_DATABASE_URL}
 
 package:
   patterns:
