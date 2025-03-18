@@ -23,6 +23,12 @@ import {
   SEND_EXTERNAL_EMAIL_SERVICE,
   SEND_INTERNAL_EMAIL_SERVICE,
 } from './send-email.port';
+import {
+  ContactRequestedEmail,
+  ContactRequestedEmailSubject,
+  ContactWelcomeEmail,
+  ContactWelcomeEmailSubject,
+} from './templates';
 
 export const SendEmailModuleKind = {
   INTERNAL: 'internal',
@@ -65,7 +71,16 @@ export class SendEmailModule {
         },
         {
           provide: EMAIL_TEMPLATES,
-          useValue: {} satisfies EmailTemplates,
+          useValue: {
+            'contact-welcome': {
+              component: ContactWelcomeEmail,
+              subject: ContactWelcomeEmailSubject,
+            },
+            'contact-requested': {
+              component: ContactRequestedEmail,
+              subject: ContactRequestedEmailSubject,
+            },
+          } satisfies EmailTemplates,
         },
       ],
     };
