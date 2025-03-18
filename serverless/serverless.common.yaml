@@ -14,6 +14,12 @@ provider:
       name: ${self:service}-${sls:stage}-role
       # TODO: Uncomment the following line if you have any managed policies
       # managedPolicies: ${self:custom.managedPolicies, ""}
+      statements:
+        - Effect: Allow
+          Resource: '*'
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
   deploymentBucket:
     name: ${self:service}-${sls:stage}
     serverSideEncryption: AES256
@@ -22,6 +28,12 @@ provider:
     NODE_ENV: ${self:custom.nodeEnv, "production"}
     CONTACT_DATABASE_URL: ${env:CONTACT_DATABASE_URL}
     BRANDS_DATABASE_URL: ${env:BRANDS_DATABASE_URL}
+    RESEND_API_KEY: ${env:RESEND_API_KEY}
+    RESEND_API_URL: ${env:RESEND_API_URL}
+    LECUALAB_HI_EMAIL: ${env:LECUALAB_HI_EMAIL}
+    LECUALAB_REPLY_TO_WELCOME_EMAIL: ${env:LECUALAB_REPLY_TO_WELCOME_EMAIL}
+    LECUALAB_INTERNAL_EMAIL: ${env:LECUALAB_INTERNAL_EMAIL}
+    LECUALAB_INTERNAL_TO_WELCOME_EMAIL: ${env:LECUALAB_INTERNAL_TO_WELCOME_EMAIL}
 
 package:
   patterns:

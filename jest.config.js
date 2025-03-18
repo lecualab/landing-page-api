@@ -5,10 +5,9 @@ const { compilerOptions } = require('./tsconfig');
 module.exports = {
   rootDir: '.',
   prettierPath: null, // HACK: Prettier v3 is incompatible with Jest's inline snapshots
-  moduleFileExtensions: ['js', 'ts'],
-  testRegex: '.*\\.spec\\.ts$',
-  transform: { '^.+\\.ts$': 'ts-jest' },
+  transform: { '^.+\\.tsx?$': 'ts-jest' },
   collectCoverageFrom: ['src/**/*.(use-case|adapter|service).ts'],
+  testPathIgnorePatterns: ['^app/.+$'],
   coverageDirectory: './coverage',
   coverageThreshold: {
     global: {
