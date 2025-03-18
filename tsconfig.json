@@ -13,9 +13,11 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "jsx": "react",
     "baseUrl": "./",
     "paths": {
       "@common/*": ["src/common/*"],
+      "@shared/*": ["src/shared/*"],
       "@features/*": ["src/features/*"]
     }
   }
