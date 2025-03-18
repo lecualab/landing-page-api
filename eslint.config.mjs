@@ -13,7 +13,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   {
     name: '@app/typescript-eslint',
-    files: ['**/*.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     extends: [
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylisticTypeChecked,
@@ -38,7 +38,7 @@ export default tseslint.config(
   },
   {
     name: '@app/typescript-eslint/type-check',
-    files: ['**/*.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     ignores: ['**/*.spec.ts'],
     extends: [...tseslint.configs.strictTypeChecked],
     rules: {
@@ -50,7 +50,7 @@ export default tseslint.config(
   },
   {
     name: '@app/sonarjs',
-    files: ['**/*.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     extends: [sonarjs.configs.recommended],
     rules: {
       'sonarjs/redundant-type-aliases': 'off',
@@ -60,7 +60,7 @@ export default tseslint.config(
   },
   {
     name: '@app/sonarjs/test',
-    files: ['**/*.spec.ts'],
+    files: ['**/*.spec.ts', '**/*.spec.tsx'],
     rules: {
       'sonarjs/no-identical-functions': 'off',
       'sonarjs/no-duplicate-string': 'off',
@@ -71,7 +71,7 @@ export default tseslint.config(
   },
   {
     name: '@app/jest',
-    files: ['**/*.spec.ts'],
+    files: ['**/*.spec.ts', '**/*.spec.tsx'],
     extends: [
       jest.configs['flat/recommended'],
       jest.configs['flat/style'],
@@ -80,6 +80,8 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
     },
   },
   {
