@@ -92,7 +92,6 @@ export default tseslint.config(
         quotes: 'single',
         quoteProps: 'as-needed',
         indent: 2,
-        flat: true,
         arrowParens: true,
         braceStyle: '1tbs',
       }),
