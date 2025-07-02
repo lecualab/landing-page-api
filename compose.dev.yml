@@ -5,6 +5,7 @@ services:
       dockerfile: ./.devcontainer/Dockerfile
     depends_on:
       - contact-db
+      - brands-db
     environment:
       - CONTACT_DATABASE_URL=postgresql://admin:admin@contact-db:5432/postgres
       - BRANDS_DATABASE_URL=postgresql://admin:admin@brands-db:5432/postgres
@@ -22,6 +23,8 @@ services:
       - ./:/app
   contact-db:
     image: postgres
+    depends_on:
+      - dbms
     volumes:
       - contact-db-data:/var/lib/postgresql/data
     environment:
@@ -29,6 +32,8 @@ services:
       - POSTGRES_PASSWORD=admin
   brands-db:
     image: postgres
+    depends_on:
+      - dbms
     volumes:
       - brands-db-data:/var/lib/postgresql/data
     environment:
