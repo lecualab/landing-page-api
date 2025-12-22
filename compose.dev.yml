@@ -22,7 +22,7 @@ services:
     volumes:
       - ./:/app
   contact-db:
-    image: postgres
+    image: postgres:17
     depends_on:
       - dbms
     volumes:
@@ -31,7 +31,7 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
   brands-db:
-    image: postgres
+    image: postgres:17
     depends_on:
       - dbms
     volumes:
